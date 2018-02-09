@@ -1,0 +1,16 @@
+Category,Accessory,Name,Description,Attribute
+cat1,ac1,Bandana,Cool cloth head gear,int +2
+cat1,ac2,Glasses,optic gear,int +2
+cat1,ac3,Helmet,intimidate enemies,int -1
+cat2,ac4,1-H Sword,simple iron sword,str +4
+cat2,ac5,Baseball Bat,metal baseball bat,str +5
+cat2,ac6,Axe Iron,deadly axe,str +10
+cat3,ac7,Fire Robe,burning like fire,str +99
+cat3,ac8,Ice Robe,cool like aqua,int +99
+cat3,ac9,Thunder Robe,fast like lightning,dex +99
+cat4,ac10,Cotton Socks,cotton candy feeling,str +20
+cat4,ac11,Wood Socks,very hard,int -15
+cat4,ac12,Clear Socks,never there,str +35
+cat5,ac13,,,
+cat5,ac14,,,
+cat5,ac15,,,

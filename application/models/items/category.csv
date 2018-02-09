@@ -1,0 +1,6 @@
+Code ,Name,Description
+cat1,Head,"Head gear, int, str"
+cat2,Weapon,"hand held, weapon, str"
+cat3,Robe,"worn over torso, str, int"
+cat4,Socks,"worn over feet, dex"
+cat5,Gloves,"worn over hands, dex"
