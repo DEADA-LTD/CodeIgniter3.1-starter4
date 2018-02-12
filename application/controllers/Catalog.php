@@ -23,7 +23,7 @@ class Catalog extends Application
         $accs = $this->accessory->all();
 		
 		foreach ($accs as $item) {
-			$itemList[] = $this->parser->parse('ItemBox', (array) $item, true);
+			$itemList[] = $this->parser->parse('itembox', (array) $item, true);
 		}
 
     // prints all categories
