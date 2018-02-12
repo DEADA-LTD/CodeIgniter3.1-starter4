@@ -22,9 +22,19 @@
                     }
                 }
             }
+            
             .containerdiv { float: left; position: relative; } 
-            .weapon { position: absolute; top: 75px; left: -30px; }
-            .helmet { position: absolute; top: -50px; right: 30px; } 
+            
+            #weapon { position: absolute; top: 75px; left: -30px; }
+            #helmet { position: absolute; top: 25px; right: 90px; } 
+            #robe { position: absolute; top: 100px; left: 130px; }
+            #socks { position: absolute; bottom: 0px; left: 15px; } 
+            #socks2 { position: absolute; bottom: 0px; right: 15px; } 
+            #gloves { position: absolute; top: 30px; right: 20px; }
+            
+            td:last-child {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -58,12 +68,38 @@
             data: $("#presetForm").serialize(), // serializes the form's elements.
             success: function (data)
             {
-                var jsonData = JSON.parse(data)
+                //alert(data); //debug
 
-                if (jsonData.length === 2) { //Just 2 for now
-                    $("#weapon").attr("src","/assets/images/items/" + jsonData[0]);
-                $("#helmet").attr("src","/assets/images/items/" + jsonData[1]);
-                }
+                //Split the JSON objects
+                var lines = data.split("\n");
+
+                var set = JSON.parse(lines[0]);
+
+                //Parse the preset info
+                var helmet = JSON.parse(lines[1]);
+                var weapon = JSON.parse(lines[2]);
+                var robe = JSON.parse(lines[3]);
+                var socks = JSON.parse(lines[4]);
+                var gloves = JSON.parse(lines[5]);
+                
+                //Set the images here
+                $("#helmet").attr("src", "/assets/images/items/" + helmet.imageName + ".png");
+                $("#weapon").attr("src", "/assets/images/items/" + weapon.imageName + ".png");
+                $("#robe").attr("src", "/assets/images/items/" + robe.imageName + ".png");
+                $("#socks").attr("src", "/assets/images/items/" + socks.imageName + ".png");
+                $("#socks2").attr("src", "/assets/images/items/" + socks.imageName + ".png");
+                $("#gloves").attr("src", "/assets/images/items/" + gloves.imageName + ".png");
+                
+                //Get the stat values
+                var str = +helmet.str + +weapon.str + +robe.str + +socks.str + +gloves.str;
+                var int = +helmet.int + +weapon.int + +robe.int + +socks.int + +gloves.int;
+                var dex = +helmet.dex + +weapon.int + +robe.int + +socks.int + +gloves.int;
+                
+                //Set the stat values
+                $("#str").css("width", str);
+                $("#int").css("width", int);
+                $("#dex").css("width", dex);
+
             }
         });
 

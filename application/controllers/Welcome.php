@@ -24,32 +24,58 @@ class Welcome extends Application {
         $this->data['pagebody'] = 'home';
 
         $this->data['character'] = 'stickman.png';
-        $this->data['weapon'] = 'sword_iron.png';
-        $this->data['helmet'] = 'helmet_light_iron.png';
-
+        
         $this->render();
     }
 
     /**
-     * Sends an array of image names as a json object based on which preset was selected.
+     * Retrieves the form choice submitted, and returns the appropriate item information
+     * as JSON objects.
      */
     public function update() {
 
-        //TODO: Instead of hardcoding stuff, pull it like catalog
+        //Load models
+        $this->load->model('equipmentSet');
+        $sets = $this->equipmentSet->all();
+
+        $this->load->model('accessory');
+        $accs = $this->accessory->all();
+
         $choice = $this->input->post("Set");
+
+        $set = $sets['equip1']; //Default set
+
+        //Equipment set determined here
         switch ($choice) {
             case "Default":
-                $set = array("sword_iron.png", "helmet_light_iron.png");
-                echo json_encode($set);
+                $set = $sets['equip-1'];
+                echo json_encode($sets['equip-1']);
+                echo "\n"; //Newline to separate json objects
                 break;
-            case "Bronze":
-                $set = array("sword_bronze.png", "helmet_light_bronze.png");
-                echo json_encode($set);
+            case "Banana Man":
+                $set = $sets['equip1'];
+                echo json_encode($sets['equip1']);
+                echo "\n";
                 break;
-            case "Wood":
-                $set = array("staff_regular_oak.png", "log_oak_1.png");
-                echo json_encode($set);
+            case "Wood Guy":
+                $set = $sets['equip2'];
+                echo json_encode($sets['equip2']);
+                echo "\n";
                 break;
+        }
+
+        //Iterate through the item ID's, and echo them
+        foreach ($set as $cat) {
+            //Check if it's a valid accessory
+            if (strpos($cat, 'equip') === 0) {
+                continue;
+            } else if (strpos($cat, '0') === 0) { //Blank accessory
+                echo json_encode($accs[$cat]);
+                echo "\n";
+                continue;
+            }
+            echo json_encode($accs[$cat]);
+            echo "\n";
         }
     }
 

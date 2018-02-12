@@ -1,3 +1,4 @@
 id,cat1,cat2,cat3,cat4,cat5
-equip1,ac1,ac4,ac7,ac10,0
-equip2,ac3,ac5,0,ac11,0
+equip1,ac1,ac4,ac7,ac10,ac14
+equip2,ac3,ac5,0,ac11,ac15
+equip-1,0,0,0,0,0

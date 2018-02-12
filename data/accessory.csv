@@ -1,16 +1,17 @@
 category,id,name,description,str,int,dex,imageName
-cat1,ac1,Bandana,Cool cloth head gear,0,2,0,genesisBandana
+cat1,ac1,Bandana,Cool cloth head gear,0,10,0,genesisBandana
 cat1,ac2,Glasses,optic gear,0,2,0,DragonGlasses
-cat1,ac3,Helmet,intimidate enemies,0,-1,0,monster_slayer_helmet
-cat2,ac4,1-H Sword,simple iron sword,4,0,0,sword_iron
-cat2,ac5,Baseball Bat,metal baseball bat,5,0,0,shrimp
+cat1,ac3,Helmet,intimidate enemies,10,-1,20,monster_slayer_helmet
+cat2,ac4,1-H Sword,simple iron sword,4,0,5,sword_iron
+cat2,ac5,Baseball Bat,metal baseball bat,5,30,5,shrimp
 cat2,ac6,Axe Iron,deadly axe,10,0,0,axe
-cat3,ac7,Fire Robe,burning like fire,99,0,0,plate_armor_iron
+cat3,ac7,Fire Robe,burning like fire,99,20,10,plate_armor_iron
 cat3,ac8,Ice Robe,cool like aqua,0,99,0,plate_armor_bronze
 cat3,ac9,Thunder Robe,fast like lightning,0,0,99,chainmail_iron
 cat4,ac10,Cloudy Cotton Socks,cotton candy feeling,20,0,-5,banana
-cat4,ac11,Wood Socks,very hard,10,-15,0,bucket
-cat4,ac12,Clear Socks,never there,0,0,0,boot
+cat4,ac11,Wood Socks,very hard,10,15,-15,bucket
+cat4,ac12,Clear Socks,never there,0,0,20,boot
 cat5,ac13,Ice Gloves,frozen,10,0,0,fish
-cat5,ac14,Dragon Gloves,fuck the dragons,0,10,0,fangs
+cat5,ac14,Dragon Gloves,only 1% dragon,0,-5,15,fangs
 cat5,ac15,Fire Gloves,very hot,0,0,10,ashes
+ozma,0,nothing,nothing,0,0,0,blank
