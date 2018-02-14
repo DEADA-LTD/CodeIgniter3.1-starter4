@@ -19,12 +19,27 @@ class Catalog extends Application
 	 */
 	public function index()
 	{
-        $this->load->model('category');
-        $all_the_items = $this->category->all();
-        
-        //prints all categories
-        
-        
+        $this->load->model('accessory');
+        $accs = $this->accessory->all();
+		
+		foreach ($accs as $item) {
+			$itemList[] = $this->parser->parse('itembox', (array) $item, true);
+		}
+
+    // prints all categories
+		// print_r($all_the_items);
+		
+		// prime the table class
+		$this->load->library('table');
+		$parms = array (
+			'table_open' => '<table>',
+			'cell_start' => '<td>'
+		);
+		$this->table->set_template($parms);
+
+		// finally! generate the table
+		$rows = $this->table->make_columns($itemList, 4);
+		$this->data['itemTable'] = $this->table->generate($rows);
         
         $this->data['pagebody'] = 'catalog';
 		$this->render(); 
