@@ -1,4 +1,5 @@
-id,cat1,cat2,cat3,cat4,cat5
-equip1,ac1,ac4,ac7,ac10,ac14
-equip2,ac3,ac5,0,ac11,ac15
-equip-1,0,0,0,0,0
+id,name,cat1,cat2,cat3,cat4,cat5
+equip-1,default,0,0,0,0,0
+equip1,Banana Man,ac1,ac4,ac7,ac10,ac14
+equip2,Wood Guy,ac3,ac5,0,ac11,ac15
+equip3,name2,ac2,ac3,ac6,0,0

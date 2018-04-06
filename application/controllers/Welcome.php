@@ -24,6 +24,12 @@ class Welcome extends Application {
         $this->data['pagebody'] = 'home';
 
         $this->data['character'] = 'stickman.png';
+
+//        $this->data['set'] = '<option onclick="" value="Default">Default</option>
+//                <option onclick="" value="Banana Man">Banana Man</option>
+//                <option onclick="" value="Wood Guy">Wood Guy</option>';
+        
+        $this->load();
         
         $this->render();
     }
@@ -63,20 +69,29 @@ class Welcome extends Application {
                 echo "\n";
                 break;
         }
-
+        $i = 0;
         //Iterate through the item ID's, and echo them
         foreach ($set as $cat) {
-            //Check if it's a valid accessory
-            if (strpos($cat, 'equip') === 0) {
-                continue;
-            } else if (strpos($cat, '0') === 0) { //Blank accessory
-                echo json_encode($accs[$cat]);
-                echo "\n";
+            if($i <2)
+            {
+                $i++;
                 continue;
             }
             echo json_encode($accs[$cat]);
             echo "\n";
         }
+    }
+    
+    public function load(){
+        $names = array();
+        $str = "";
+        $this->load->model('equipmentSet');
+        $sets = $this->equipmentSet->all();
+        foreach ($sets as $set) {
+            $str .= "<option onclick='' value = '$set->name'>$set->name</option>";
+        }
+        $this->data['name'] = $str;
+        
     }
 
 }

@@ -59,7 +59,7 @@
 <script>
     // this is the id of the form
     $("#presetForm").submit(function (e) {
-
+        
         var url = "/Welcome/Update"; // the script that handles the form input
 
         $.ajax({
@@ -69,7 +69,6 @@
             success: function (data)
             {
                 //alert(data); //debug
-
                 //Split the JSON objects
                 var lines = data.split("\n");
 

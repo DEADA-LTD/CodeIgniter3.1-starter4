@@ -7,9 +7,7 @@
         Equipment Sets
         <form id="presetForm" method="post" action="/Welcome/Update">
             <select class="form-control form-control-sm" name="Set">
-                <option value="Default">Default</option>
-                <option value="Banana Man">Banana Man</option>
-                <option value="Wood Guy">Wood Guy</option>
+                {name}
             </select>
             <input id="submitBtn" style="margin-top: 10px; margin-bottom: 10px" class="btn btn-info" type="submit">
         </form>
