@@ -12,7 +12,20 @@
         </ul>
     </li>   
 </ul>
-{pagetitle}
+<h2>{pagetitle}</h2>
 <br />
-{edit}
 {itemTable}
+
+<h3>Equipment Set</h3>
+<table class="table">
+        <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Head</th>
+                <th>Weapon</th>
+                <th>Robe</th>
+                <th>Feet</th>
+                <th>Hands</th>
+        </tr>
+        {display_tasks}
+</table>

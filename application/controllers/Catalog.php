@@ -23,8 +23,11 @@ class Catalog extends Application
 		$accs = $this->accessory->all();
 		$this->load->model('category');
 		$categories = $this->category->all();
+		$this->load->model('equipmentSet');
+		$equips = $this->equipmentSet->all();
 
 		$itemTables = '';
+		$result = '';
 
 		foreach ($categories as $cat) {
 			$items = $this->accessory->getItems($cat->id);
@@ -50,6 +53,8 @@ class Catalog extends Application
 			$itemTables .= $this->table->generate($rows);
 		}
 
+
+
     	// prints all categories
 		// print_r($all_the_items);
 		
@@ -57,26 +62,38 @@ class Catalog extends Application
 			
 		$role = $this->session->userdata('userrole');
 		$this->data['pagetitle'] = 'Current User ('. $role . ')';
+		
+		//if role is owner allow equipment mod
+		foreach ($equips as $equip)
+		{
+			if ($role == ROLE_OWNER || $role == ROLE_USER)
+					$result .= $this->parser->parse('equipx', (array) $equip, true);
+			else
+					$result .= $this->parser->parse('equip', (array) $equip, true);
+		}
 
-		if ($role == ROLE_OWNER) 
-        	$this->data['edit'] = $this->parser->parse('modify',[], true);
-		else
-			$this->data['edit'] = " ";
-			
 		$this->data['itemTable'] = $itemTables;
-        
-        $this->data['pagebody'] = 'catalog';
+		$this->data['pagebody'] = 'catalog';
+		
+		$this->data['display_tasks'] = $result;
+
 		$this->render(); 
 	}
 
-	public function modify() {
-		$this->showForm();
+	public function modify($id = null) {
+		if ($id == null)
+			redirect('/catalog');
+
+		$this->load->model('equipmentSet');
+		$equip = $this->equipmentSet->get($id);
+        $this->session->set_userdata('equipment', $equip);
+        $this->showForm();
 	}
 
 	public function showForm() {
 		$this->load->helper('form');
-        //$task = $this->session->userdata('task');
-        //$this->data['id'] = $equip->id;
+        $equip = $this->session->userdata('equipment');
+        $this->data['id'] = $equip->id;
         // if no errors, pass an empty message
         if ( ! isset($this->data['error']))
             $this->data['error'] = '';
@@ -94,15 +111,48 @@ class Catalog extends Application
 	}
 
 	public function cancel() {
-		//$this->session->unset_userdata('task');
+		$this->session->unset_userdata('equipment');
         redirect('/catalog');
 	}
 
 	public function delete() {
-		//$dto = $this->session->userdata('task');
-        //$task = $this->tasks->get($dto->id);
-        //$this->tasks->delete($task->id);
-        //$this->session->unset_userdata('task');
+		$dto = $this->session->userdata('equipment');
+
+		$this->load->model('equipmentSet');
+        $equip = $this->equipmentSet->get($dto->id);
+        $this->equipmentSet->delete($equip->id);
+        $this->session->unset_userdata('equip');
         redirect('/catalog');
+	}
+
+	public function submit() {
+		// setup for validation
+		$this->load->library('form_validation');
+		
+		$this->load->model('equipmentSet');		
+        $this->form_validation->set_rules($this->equipmentSet->rules());
+        // retrieve & update data transfer buffer
+        $equip = (array) $this->session->userdata('equipment');
+        $equip = array_merge($equip, $this->input->post());
+        $equip = (object) $equip;  // convert back to object
+        $this->session->set_userdata('equipment', (object) $equip);
+        // validate away
+        if ($this->form_validation->run())
+        {
+            if (empty($equip->id))
+            {
+                $equip->id = $this->equipmentSet->highest() + 1;
+                $this->equipmentSet->add($equip);
+                $this->alert('Task ' . $equip->id . ' added', 'success');
+            } else
+            {
+                $this->equipmentSet->update($equip);
+                $this->alert('Task ' . $equip->id . ' updated', 'success');
+            }
+        } else
+        {
+            $this->alert('<strong>Validation errors!<strong><br>' . validation_errors(), 'danger');
+        }
+        $this->showForm();
 	}
 }
