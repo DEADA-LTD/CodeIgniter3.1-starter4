@@ -1,5 +1,5 @@
 <h1>Set # {id}</h1>
-<form role="form" action="/mtce/submit" method="post">
+<form role="form" action="/catalog/submit" method="post">
 {fhead}
     {fbody}
     <br />
