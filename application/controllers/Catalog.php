@@ -19,27 +19,43 @@ class Catalog extends Application
 	 */
 	public function index()
 	{
-        $this->load->model('accessory');
-        $accs = $this->accessory->all();
-		
-		foreach ($accs as $item) {
-			$itemList[] = $this->parser->parse('itembox', (array) $item, true);
+		$this->load->model('accessory');
+		$accs = $this->accessory->all();
+		$this->load->model('category');
+		$categories = $this->category->all();
+
+		$itemTables = '';
+
+		foreach ($categories as $cat) {
+			$items = $this->accessory->getItems($cat->id);
+
+			$itemList = array();
+
+			foreach($items as $item) {
+				$itemList[] = $this->parser->parse('itembox', (array) $item, true);
+			}
+
+			$this->load->library('table');
+			$parms = array (
+				'table_open' => '<table>',
+				'cell_start' => '<td>'
+			);
+			$this->table->set_template($parms);
+
+			// finally! generate the table
+			$rows = $this->table->make_columns($itemList, 4);
+
+			$itemTables .= '<h2>' . $cat->name . '</h2> <p>' . $cat->description . '</p>';
+
+			$itemTables .= $this->table->generate($rows);
 		}
 
-    // prints all categories
+    	// prints all categories
 		// print_r($all_the_items);
 		
 		// prime the table class
-		$this->load->library('table');
-		$parms = array (
-			'table_open' => '<table>',
-			'cell_start' => '<td>'
-		);
-		$this->table->set_template($parms);
-
-		// finally! generate the table
-		$rows = $this->table->make_columns($itemList, 4);
-		$this->data['itemTable'] = $this->table->generate($rows);
+		
+		$this->data['itemTable'] = $itemTables;
         
         $this->data['pagebody'] = 'catalog';
 		$this->render(); 

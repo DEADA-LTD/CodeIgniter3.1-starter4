@@ -25,6 +25,8 @@ class Welcome extends Application {
 
         $this->data['character'] = 'stickman.png';
         
+        $this->load();
+        
         $this->render();
     }
 
@@ -43,40 +45,31 @@ class Welcome extends Application {
 
         $choice = $this->input->post("Set");
 
-        $set = $sets['equip1']; //Default set
-
-        //Equipment set determined here
-        switch ($choice) {
-            case "Default":
-                $set = $sets['equip-1'];
-                echo json_encode($sets['equip-1']);
-                echo "\n"; //Newline to separate json objects
-                break;
-            case "Banana Man":
-                $set = $sets['equip1'];
-                echo json_encode($sets['equip1']);
-                echo "\n";
-                break;
-            case "Wood Guy":
-                $set = $sets['equip2'];
-                echo json_encode($sets['equip2']);
-                echo "\n";
-                break;
-        }
-
+        $set = $sets[$choice];
+        
+        $i = 0;
         //Iterate through the item ID's, and echo them
         foreach ($set as $cat) {
-            //Check if it's a valid accessory
-            if (strpos($cat, 'equip') === 0) {
-                continue;
-            } else if (strpos($cat, '0') === 0) { //Blank accessory
-                echo json_encode($accs[$cat]);
-                echo "\n";
+            if($i <2)
+            {
+                $i++;
                 continue;
             }
             echo json_encode($accs[$cat]);
             echo "\n";
         }
+    }
+    
+    public function load(){
+        $names = array();
+        $str = "";
+        $this->load->model('equipmentSet');
+        $sets = $this->equipmentSet->all();
+        foreach ($sets as $set) {
+            $str .= "<option value = '$set->id'>$set->name</option>";
+        }
+        $this->data['name'] = $str;
+        
     }
 
 }
