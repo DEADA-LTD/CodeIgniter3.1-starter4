@@ -5,7 +5,7 @@
     <div class="col-md-4">
         <!-- Preset form -->
         
-        <form id="createSet" method="post" action="/Create/Update">
+        <form id="createSet" method="post" action="/Create/Submit">
             Head:
             <select class="form-control form-control-sm" name="Head" onchange="displayEquip()">
                 {Head}
@@ -26,8 +26,8 @@
             <select class="form-control form-control-sm" name="Gloves" onchange="displayEquip()">
                 {Gloves}
             </select>
-            name: <input id="name" type="text" style="margin-top: 10px; margin-bottom: 10px" class="form-control">
-            <p id="errmsg" style="display: none;">enter a name</p>
+            Name: <input name="Name" type="text" style="margin-top: 10px; margin-bottom: 10px" class="form-control">
+            <p id="errmsg" style="display: none; color:red;">Please enter a valid name</p>
             <input id="submitBtn1" style="margin-top: 10px; margin-bottom: 10px" class="btn btn-info" type="submit">
         </form>
         <!-- Strength bar -->
