@@ -106,15 +106,7 @@
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
     });
-    
-//    var options = document.getElementsByClassName('opt');
-//    
-//    for (i = 0; i < options.length; i++) {
-//        options[i].onclick=function() {
-//            alert(1)
-//        }
-//    }
-        // this is the id of the form
+
     function displayEquip(){
         
         var url = "/Create/Update"; // the script that handles the form input
@@ -127,8 +119,6 @@
                 //alert(data); //debug
                 //Split the JSON objects
                 var lines = data.split("\n");
-
-                //var set = JSON.parse(lines[0]);
 
                 //Parse the preset info
                 var helmet = JSON.parse(lines[0]);
@@ -157,8 +147,6 @@
 
             }
         });
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
     }
     
     document.getElementById('submitBtn1').onclick=function() {
